@@ -18,7 +18,7 @@ import static net.kynon.divonix.Main.jda;
 
 public class Main extends DivonixPlugin {
 
-    public static String version = "1.0.0";
+    public static String version = "1.0.1";
 
     @Override
     public void onEnable() {
@@ -32,9 +32,9 @@ public class Main extends DivonixPlugin {
         jda.addEventListener(new TicketCreateEvent());
         jda.addEventListener(new TicketCloseEvent());
 
-        jda.upsertCommand("DTPhelp", "View all commands of Divonix Tickets Plugin").queue();
-        jda.upsertCommand("DTPcreatepanel", "Create a tickets panel").addOption(OptionType.STRING, "name", "panel's name", true).queue();
-        jda.upsertCommand("DTPsendpanel", "Send a panel in your current channel").addOption(OptionType.STRING, "name", "panel's name", true).addOption(OptionType.CHANNEL, "channel", "channel's ID where the panel will be sent", true).queue();
+        jda.upsertCommand("dtphelp", "View all commands of Divonix Tickets Plugin").queue();
+        jda.upsertCommand("dtpcreatepanel", "Create a tickets panel").addOption(OptionType.STRING, "name", "panel's name", true).queue();
+        jda.upsertCommand("dtpsendpanel", "Send a panel in your current channel").addOption(OptionType.STRING, "name", "panel's name", true).addOption(OptionType.CHANNEL, "channel", "channel's ID where the panel will be sent", true).queue();
 
         System.out.println("[DTP] Thanks for using Divonix Tickets Plugin!");
         System.out.println("[DTP] You can view all of the commands by writing /DTPhelp");

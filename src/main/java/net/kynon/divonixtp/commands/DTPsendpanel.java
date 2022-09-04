@@ -17,7 +17,7 @@ public class DTPsendpanel extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
 
-        if (event.getName().equalsIgnoreCase("DTPsendpanel")) {
+        if (event.getName().equalsIgnoreCase("dtpsendpanel")) {
             Member m = event.getMember();
             String name = event.getOption("name").toString();
             TextChannel channel = event.getOption("channel").getAsChannel().asTextChannel();

@@ -12,7 +12,7 @@ public class DTPHelp extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         Member m = event.getMember();
 
-        if (event.getName().equalsIgnoreCase("DTPhelp")) {
+        if (event.getName().equalsIgnoreCase("dtphelp")) {
             EmbedBuilder eb = new EmbedBuilder();
 
             eb.setTitle("All commands for Divonix Tickets");

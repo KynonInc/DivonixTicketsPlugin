@@ -15,7 +15,7 @@ public class DTPcreatepanel extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
 
-        if (event.getName().equalsIgnoreCase("DTPcreatepanel")) {
+        if (event.getName().equalsIgnoreCase("dtpcreatepanel")) {
             Member m = event.getMember();
             String name = event.getOption("name").toString();
             Guild g = event.getGuild();
