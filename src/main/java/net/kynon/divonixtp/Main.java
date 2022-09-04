@@ -2,7 +2,13 @@ package net.kynon.divonixtp;
 
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.kynon.divonix.plugins.DivonixPlugin;
+import net.kynon.divonixtp.commands.DTPHelp;
+import net.kynon.divonixtp.commands.DTPcreatepanel;
+import net.kynon.divonixtp.commands.DTPsendpanel;
+import net.kynon.divonixtp.events.TicketCloseEvent;
+import net.kynon.divonixtp.events.TicketCreateEvent;
 
 import java.io.File;
 import java.util.HashMap;
@@ -17,6 +23,21 @@ public class Main extends DivonixPlugin {
     @Override
     public void onEnable() {
         new File("plugins/DTP").mkdirs();
+        new File("plugins/DTP/panels").mkdirs();
+        new File("plugins/DTP/tickets").mkdirs();
+
+        jda.addEventListener(new DTPHelp());
+        jda.addEventListener(new DTPsendpanel());
+        jda.addEventListener(new DTPcreatepanel());
+        jda.addEventListener(new TicketCreateEvent());
+        jda.addEventListener(new TicketCloseEvent());
+
+        jda.upsertCommand("DTPhelp", "View all commands of Divonix Tickets Plugin").queue();
+        jda.upsertCommand("DTPcreatepanel", "Create a tickets panel").addOption(OptionType.STRING, "name", "panel's name", true).queue();
+        jda.upsertCommand("DTPsendpanel", "Send a panel in your current channel").addOption(OptionType.STRING, "name", "panel's name", true).addOption(OptionType.CHANNEL, "channel", "channel's ID where the panel will be sent", true).queue();
+
+        System.out.println("[DTP] Thanks for using Divonix Tickets Plugin!");
+        System.out.println("[DTP] You can view all of the commands by writing /DTPhelp");
     }
 
 

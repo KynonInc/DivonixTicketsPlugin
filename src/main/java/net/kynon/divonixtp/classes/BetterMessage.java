@@ -12,14 +12,14 @@ import java.util.Objects;
 
 public class BetterMessage {
 
-    public static String message(String message, Member member, Guild guild) {
+    public static String message(String filepath, String message, Member member, Guild guild) {
 
         String msg = "";
 
         try {
             Yaml yaml = new Yaml();
 
-            Map<String, Object> msgData = Main.replacePlaceholders(yaml.load(new FileInputStream("plugins/DTP/wpconfig.yml")), member, guild);
+            Map<String, Object> msgData = Main.replacePlaceholders(yaml.load(new FileInputStream(filepath)), member, guild);
 
             if (!Objects.equals(msgData.get(message + ".message"), null)) {
                 msg = msgData.get(message + ".message").toString();

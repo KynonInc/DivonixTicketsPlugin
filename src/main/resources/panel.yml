@@ -1,0 +1,53 @@
+# Placeholders usable in embeds and some other properties:
+# %member-tag% - display member's full tag
+# %member-name% - display member's discord name
+# %member-mention% - mention the member
+# %member-nickname% - display member's nickname
+# %member-id% - display member's discord account ID
+# %member-avatar-url% - display member's discord profile image URL (can be used in .image and .thumbnail);
+# %bot-version% - display bot's current version
+# please note some might not work correctly in titles, footers, field titles due to discord limitations
+
+# The ID of a category where panel tickets should be created
+panel-category: paste-the-ID-here
+
+# Extra placeholders usable in names:
+# %number% - ticket's number
+tickets-names: "ticket-%number%"
+
+# Panel Embed (/DTPsendpanel)
+panel.message:
+panel.embed: true
+panel.title: "Tickets Panel"
+panel.description: "Press the button below to open a ticket!"
+panel.footer: "DTP | v%bot-version%"
+panel.image:
+panel.thumbnail:
+panel.color: 255,255,255
+panel.fields:
+
+# Message sent right when a member opens a ticket (in the ticket channel)
+ticket.message: "%member-mention%"
+ticket.embed: true
+ticket.title: "Successfully opened your ticket"
+ticket.description: "Please wait for further support"
+ticket.footer: "DTP | v%bot-version%"
+ticket.image:
+ticket.thumbnail:
+ticket.color: 255,255,255
+ticket.fields:
+  - "To close the ticket|~|Click on the button below|~|false"
+
+# Ticket closing message
+ticket-closing.message:
+ticket-closing.embed: true
+ticket-closing.title: "Tickets Panel"
+ticket-closing.description: "Press the button below to open a ticket!"
+ticket-closing.footer: "DTP | v%bot-version%"
+ticket-closing.image:
+ticket-closing.thumbnail:
+ticket-closing.color: 255,255,255
+ticket-closing.fields:
+
+# Ticket closing time - channel deletes after specified time (seconds)
+ticket-closing-time: 600

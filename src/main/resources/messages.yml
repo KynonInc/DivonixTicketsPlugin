@@ -1,0 +1,53 @@
+# Placeholders usable in embeds:
+# %member-tag% - display member's full tag
+# %member-name% - display member's discord name
+# %member-mention% - mention the member
+# %member-nickname% - display member's nickname
+# %member-id% - display member's discord account ID
+# %member-avatar-url% - display member's discord profile image URL (can be used in .image and .thumbnail);
+# %bot-version% - display bot's current version
+# please note some might not work correctly in titles, footers, field titles due to discord limitations
+
+# Panel already exists (/DTPcreatepanel):
+panel-already-exists.message:
+panel-already-exists.embed: true
+panel-already-exists.title: "Error"
+panel-already-exists.description: "This panel already exists. Try a different name!"
+panel-already-exists.footer:
+panel-already-exists.image:
+panel-already-exists.thumbnail:
+panel-already-exists.color: 184,81,81
+panel-already-exists.fields:
+
+# Panel created (/DTPcreatepanel):
+panel-created.message:
+panel-created.embed: true
+panel-created.title: "Success"
+panel-created.description: "The panel has been successfully created! You can edit it in `plugins/DTP/panels/<name>.yml`"
+panel-created.footer:
+panel-created.image:
+panel-created.thumbnail:
+panel-created.color: 255,255,255
+panel-created.fields:
+
+# Panel doesn't exist (/DTPsendpanel):
+panel-doesnt-exist.message:
+panel-doesnt-exist.embed: true
+panel-doesnt-exist.title: "Error"
+panel-doesnt-exist.description: "This panel doesnt exist (wrong name?)"
+panel-doesnt-exist.footer:
+panel-doesnt-exist.image:
+panel-doesnt-exist.thumbnail:
+panel-doesnt-exist.color: 184,81,81
+panel-doesnt-exist.fields:
+
+# Panel successfully sent (/DTPsendpanel):
+panel-sent.message:
+panel-sent.embed: true
+panel-sent.title: "Success"
+panel-sent.description: "Successfully sent the panel"
+panel-sent.footer:
+panel-sent.image:
+panel-sent.thumbnail:
+panel-sent.color: 255,255,255
+panel-sent.fields:
