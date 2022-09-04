@@ -37,7 +37,7 @@ public class Main extends DivonixPlugin {
         jda.upsertCommand("dtpsendpanel", "Send a panel in your current channel").addOption(OptionType.STRING, "name", "panel's name", true).addOption(OptionType.CHANNEL, "channel", "channel's ID where the panel will be sent", true).queue();
 
         System.out.println("[DTP] Thanks for using Divonix Tickets Plugin!");
-        System.out.println("[DTP] You can view all of the commands by writing /DTPhelp");
+        System.out.println("[DTP] You can view all of the commands by writing /dtphelp");
     }
 
 
