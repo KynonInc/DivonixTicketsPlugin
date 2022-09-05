@@ -1,10 +1,7 @@
 package net.kynon.divonixtp.classes;
 
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Category;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.interactions.components.buttons.Button;
 import net.kynon.divonixtp.Main;
 import org.yaml.snakeyaml.Yaml;
@@ -14,13 +11,13 @@ import java.util.*;
 
 public class Ticket {
 
-    public static void create(String name, Member m, Guild g) throws IOException {
-        String number = String.valueOf(new File("plugins/DTP/tickets/" + name).listFiles().length + 1);
+    public static TextChannel create(String name, Member m, Guild g) throws IOException {
+        String number = String.valueOf(new File("plugins/DTP/tickets/" + name).listFiles().length);
 
         BufferedWriter bw = new BufferedWriter(new FileWriter("plugins/DTP/tickets/" + name + "/" + number + ".yml"));
 
         Yaml yaml = new Yaml();
-        Map<String, Object> panelData = Main.replacePlaceholders(yaml.load(new FileInputStream("plugins/DTP/panels/" + name + ".yml")), m, g);
+        Map<String, Object> panelData = Main.replacePlaceholders(yaml.load(new FileInputStream("plugins/DTP/panels/" + name + ".yml")), m, g, "", "");
         Category category = g.getCategoryById(panelData.get("panel-category").toString());
 
         String ticketname = panelData.get("tickets-names").toString().replaceAll("%number%", number);
@@ -32,48 +29,49 @@ public class Ticket {
 
         TextChannel channel = category.createTextChannel(ticketname).addMemberPermissionOverride(m.getIdLong(), perms, Collections.emptyList()).complete();
 
-        bw.write("state: open");
-        bw.write("channel: " + channel.getId());
+        bw.write("state: open\n");
+        bw.write("channel: " + channel.getId() + "\n");
         bw.write("created-by: " + m.getId());
         bw.close();
 
-        channel.sendMessage(BetterMessage.message("plugins/DTP/panels/" + name + ".yml", "ticket", m, g))
-                .addEmbeds(BetterEmbed.sendEmbed("plugins/DTP/panels/" + name + ".yml", "ticket", m, g).build())
-                .addActionRow(Button.primary("DTPcloseticket-" + name, "❌")).queue();
+        channel.sendMessage(BetterMessage.message("plugins/DTP/panels/" + name + ".yml", "ticket", m, g, "", ""))
+                .addEmbeds(BetterEmbed.sendEmbed("plugins/DTP/panels/" + name + ".yml", "ticket", m, g, "", "").build())
+                .addActionRow(Button.secondary("DTPcloseticket-" + name + ";" + number, "❌")).queue();
+
+        return channel;
     }
 
-    public static void close(String channelID, String name, Member m, Guild g) throws IOException {
+    public static void close(String number, String name, Member m, Guild g) throws IOException {
         Yaml yaml = new Yaml();
+        Map<String, Object> ticketData = yaml.load(new FileInputStream("plugins/DTP/tickets/" + name + "/" + number + ".yml"));
+        Map<String, Object> panelData = yaml.load(new FileInputStream("plugins/DTP/panels/" + name + ".yml"));
 
-        for (File f : new File("plugins/DTP/tickets/" + name).listFiles()) {
-            Map<String, Object> ticketData = yaml.load(new FileInputStream(f));
-            Map<String, Object> panelData = yaml.load(new FileInputStream("plugins/DTP/panels/" + name + ".yml"));
+        String member = ticketData.get("created-by").toString();
+        String channelid = ticketData.get("channel").toString();
 
-            if (ticketData.get("channel").toString().equals(channelID)) {
-                String number = f.getName().replaceAll(".yml", "");
-                String member = ticketData.get("created-by").toString();
-
-                BufferedWriter bw = new BufferedWriter(new FileWriter("plugins/DTP/tickets/" + name + "/" + number + ".yml"));
-                bw.write("state: closed");
-                bw.write("channel: " + channelID);
-                bw.write("created-by: " + member);
-                bw.close();
-
-                g.getTextChannelById(channelID).sendMessage(BetterMessage.message("plugins/DTP/panels/" + name + ".yml", "ticket-closing", m, g))
-                        .addEmbeds(BetterEmbed.sendEmbed("plugins/DTP/panels/" + name + ".yml", "ticket-closing", m, g).build()).queue();
-
-                TimerTask task = new TimerTask() {
-                    @Override
-                    public void run() {
-                        g.getTextChannelById(channelID).delete().queue();
-                    }
-                };
-
-                int time = Integer.parseInt(panelData.get("ticket-closing-time").toString());
-
-                Timer timer = new Timer();
-                timer.schedule(task, time * 1000L);
-            }
+        String history = "";
+        for (Message msg : g.getTextChannelById(channelid).getHistory().retrievePast(g.getTextChannelById(channelid).getHistory().size()).complete()) {
+            history+="(" + msg.getAuthor().getId() + ") " + msg.getAuthor().getAsTag() + ": " + msg.getContentRaw() + "\n";
         }
+
+        BufferedWriter bw = new BufferedWriter(new FileWriter("plugins/DTP/tickets/" + name + "/logs/" + number + ".yml"));
+        bw.write(history);
+        bw.close();
+
+        BufferedWriter bw2 = new BufferedWriter(new FileWriter("plugins/DTP/tickets/" + name + "/" + number + ".yml"));
+        bw2.write("state: closed\n");
+        bw2.write("channel: " + channelid + "\n");
+        bw2.write("created-by: " + member);
+        bw2.close();
+
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                g.getTextChannelById(channelid).delete().queue();
+            }
+        };
+        int time = Integer.parseInt(panelData.get("ticket-closing-time").toString());
+        Timer timer = new Timer();
+        timer.schedule(task, time * 1000L);
     }
 }

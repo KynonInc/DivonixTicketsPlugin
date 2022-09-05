@@ -16,12 +16,13 @@ public class DTPHelp extends ListenerAdapter {
             EmbedBuilder eb = new EmbedBuilder();
 
             eb.setTitle("All commands for Divonix Tickets");
-            eb.addField("/DTPcreatepanel <name>", "create a new tickets panel", false);
-            eb.addField("/DTPsendpanel <panel-name> <channel-ID>", "send specified tickets panel in a channel", false);
+            eb.addField("/dtpcreatepanel <name>", "create a new tickets panel", false);
+            eb.addField("/dtpdeletepanel <name>", "delete a new tickets panel", false);
+            eb.addField("/dtpsendpanel <panel-name> <channel-ID>", "send specified tickets panel in a channel", false);
 
             eb.setFooter("DTP | v" + Main.version);
 
-            event.replyEmbeds(eb.build()).setEphemeral(true);
+            event.replyEmbeds(eb.build()).setEphemeral(true).queue();
         }
     }
 }

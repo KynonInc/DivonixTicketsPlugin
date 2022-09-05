@@ -20,20 +20,18 @@ public class Panel {
             String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
 
             File file = new File("plugins/DTP/panels/" + name + ".yml");
-            if (!file.exists()) {
-                file.createNewFile();
-                BufferedWriter bw = new BufferedWriter(new FileWriter("plugins/DTP/panels/" + name + ".yml"));
-                bw.write(result);
-                bw.close();
-            }
+            file.createNewFile();
+            BufferedWriter bw = new BufferedWriter(new FileWriter("plugins/DTP/panels/" + name + ".yml"));
+            bw.write(result);
+            bw.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void send(String name, TextChannel channel, Member m, Guild g) {
-        channel.sendMessage(BetterMessage.message("plugins/DTP/panels/" + name + ".yml", "panel", m, g))
-                .addEmbeds(BetterEmbed.sendEmbed("plugins/DTP/panels/" + name + ".yml", "panel", m, g).build())
-                .addActionRow(Button.primary("DTPpanel-" + name, "\uD83D\uDCE9")).queue();
+        channel.sendMessage(BetterMessage.message("plugins/DTP/panels/" + name + ".yml", "panel", m, g, "", ""))
+                .addEmbeds(BetterEmbed.sendEmbed("plugins/DTP/panels/" + name + ".yml", "panel", m, g, "", "").build())
+                .addActionRow(Button.secondary("DTPpanel-" + name, "\uD83D\uDCE9")).queue();
     }
 }

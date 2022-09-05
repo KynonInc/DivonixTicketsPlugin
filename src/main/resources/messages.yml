@@ -30,6 +30,17 @@ panel-created.thumbnail:
 panel-created.color: 255,255,255
 panel-created.fields:
 
+# Panel deleted (/DTPdeletepanel):
+panel-deleted.message:
+panel-deleted.embed: true
+panel-deleted.title: "Success"
+panel-deleted.description: "The panel has been successfully deleted!"
+panel-deleted.footer:
+panel-deleted.image:
+panel-deleted.thumbnail:
+panel-deleted.color: 255,255,255
+panel-deleted.fields:
+
 # Panel doesn't exist (/DTPsendpanel):
 panel-doesnt-exist.message:
 panel-doesnt-exist.embed: true

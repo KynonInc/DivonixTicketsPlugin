@@ -26,6 +26,20 @@ panel.thumbnail:
 panel.color: 255,255,255
 panel.fields:
 
+# Message sent right when a member opens a ticket (in the panel channel)
+# Usable placeholder:
+# %channel% - get the ticket channel mention (so member can click on it)
+ticket-created.message: "%member-mention%"
+ticket-created.embed: true
+ticket-created.title: "Ticket Opened"
+ticket-created.description: "Support will arrive soon!"
+ticket-created.footer: "DTP | v%bot-version%"
+ticket-created.image:
+ticket-created.thumbnail:
+ticket-created.color: 255,255,255
+ticket-created.fields:
+  - "Channel|~|the ticket has been created in %channel%|~|false"
+
 # Message sent right when a member opens a ticket (in the ticket channel)
 ticket.message: "%member-mention%"
 ticket.embed: true
@@ -41,8 +55,8 @@ ticket.fields:
 # Ticket closing message
 ticket-closing.message:
 ticket-closing.embed: true
-ticket-closing.title: "Tickets Panel"
-ticket-closing.description: "Press the button below to open a ticket!"
+ticket-closing.title: "Ticket closing"
+ticket-closing.description: "This ticket will close soon"
 ticket-closing.footer: "DTP | v%bot-version%"
 ticket-closing.image:
 ticket-closing.thumbnail:
@@ -51,3 +65,14 @@ ticket-closing.fields:
 
 # Ticket closing time - channel deletes after specified time (seconds)
 ticket-closing-time: 600
+
+# Ticket already closed message
+ticket-already-closed.message:
+ticket-already-closed.embed: true
+ticket-already-closed.title: "Error"
+ticket-already-closed.description: "This ticket is already closed"
+ticket-already-closed.footer: "DTP | v%bot-version%"
+ticket-already-closed.image:
+ticket-already-closed.thumbnail:
+ticket-already-closed.color: 184,81,81
+ticket-already-closed.fields:

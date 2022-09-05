@@ -17,21 +17,22 @@ public class DTPcreatepanel extends ListenerAdapter {
 
         if (event.getName().equalsIgnoreCase("dtpcreatepanel")) {
             Member m = event.getMember();
-            String name = event.getOption("name").toString();
+            String name = event.getOption("name").getAsString();
             Guild g = event.getGuild();
 
             if (!new File("plugins/DTP/panels/" + name + ".yml").exists()) {
                 new File("plugins/DTP/tickets/" + name).mkdirs();
+                new File("plugins/DTP/tickets/" + name + "/logs").mkdirs();
 
                 Panel.create(name);
 
-                event.reply(BetterMessage.message("plugins/DTP/messages.yml", "panel-created", m, g))
-                        .addEmbeds(BetterEmbed.sendEmbed("plugins/DTP/messages.yml", "panel-created", m, g).build())
+                event.reply(BetterMessage.message("plugins/DTP/messages.yml", "panel-created", m, g, "", ""))
+                        .addEmbeds(BetterEmbed.sendEmbed("plugins/DTP/messages.yml", "panel-created", m, g, "", "").build())
                         .setEphemeral(true).queue();
             }
             else {
-                event.reply(BetterMessage.message("plugins/DTP/messages.yml", "panel-already-exists", m, g))
-                        .addEmbeds(BetterEmbed.sendEmbed("plugins/DTP/messages.yml", "panel-already-exists", m, g).build())
+                event.reply(BetterMessage.message("plugins/DTP/messages.yml", "panel-already-exists", m, g, "", ""))
+                        .addEmbeds(BetterEmbed.sendEmbed("plugins/DTP/messages.yml", "panel-already-exists", m, g, "", "").build())
                         .setEphemeral(true).queue();
             }
         }
